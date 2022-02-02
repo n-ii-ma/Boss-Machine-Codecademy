@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 
+const morgan = require("morgan");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 
@@ -10,6 +11,9 @@ module.exports = app;
  *  the frontend application to interact as planned with the api server
  */
 const PORT = process.env.PORT || 4001;
+
+// Add middleware for logging status
+app.use(morgan("dev"));
 
 // Add middleware for handling CORS requests from index.html
 app.use(cors());
