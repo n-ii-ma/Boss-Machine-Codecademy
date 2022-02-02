@@ -7,10 +7,9 @@ const {
   addToDatabase,
   updateInstanceInDatabase,
   deleteFromDatabasebyId,
-  deleteAllFromDatabase,
 } = require("../db");
 
-// Set Parameter
+// Parameter Mapping
 minionsRouter.param("minionId", (req, res, next, id) => {
   const minion = getFromDatabaseById("minions", id);
   if (minion) {
@@ -31,14 +30,14 @@ minionsRouter.get("/:minionId", (req, res) => {
   res.send(req.minion);
 });
 
-// POST /api/minions to create a new minion and save it to the database.
-minionsRouter.post("/", (req, res) => {
-  res.status(201).send(addToDatabase("minions", req.body));
-});
-
 // PUT /api/minions/:minionId to update a single minion by id.
 minionsRouter.put("/:minionId", (req, res) => {
   res.send(updateInstanceInDatabase("minions", req.body));
+});
+
+// POST /api/minions to create a new minion and save it to the database.
+minionsRouter.post("/", (req, res) => {
+  res.status(201).send(addToDatabase("minions", req.body));
 });
 
 // DELETE /api/minions/:minionId to delete a single minion by id.
