@@ -9,6 +9,8 @@ const {
   deleteFromDatabasebyId,
 } = require("../db");
 
+const checkMillionDollarIdea = require("../checkMillionDollarIdea");
+
 // Parameter Mapping
 ideasRouter.param("ideaId", (req, res, next, id) => {
   const idea = getFromDatabaseById("ideas", id);
@@ -31,12 +33,12 @@ ideasRouter.get("/:ideaId", (req, res) => {
 });
 
 // PUT /api/ideas/:ideaId to update a single idea by id.
-ideasRouter.put("/:ideaId", (req, res) => {
+ideasRouter.put("/:ideaId", checkMillionDollarIdea, (req, res) => {
   res.send(updateInstanceInDatabase("ideas", req.body));
 });
 
 // POST /api/ideas to create a new idea and save it to the database.
-ideasRouter.post("/", (req, res) => {
+ideasRouter.post("/", checkMillionDollarIdea, (req, res) => {
   res.status(201).send(addToDatabase("ideas", req.body));
 });
 
